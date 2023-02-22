@@ -14,7 +14,7 @@ def speak(text):
     engine.setProperty('voice', voices[0].id)
     # setting the rate
     rate = engine.getProperty('rate')
-    engine.setProperty('rate', rate-50)
+    engine.setProperty('rate', 270)
     # setting the volume
     volume = engine.getProperty('volume')   #getting to know current volume level (min=0 and max=1)
     engine.setProperty('volume',1.0)
