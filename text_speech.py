@@ -1,10 +1,50 @@
 
 import pyttsx3
-import PyPDF2
+import tkinter as tk
+from tkinter import *
 
-#text = 'Hello World am Mr Creative'
-#with open('text.txt', 'r') as f:
-    #text = f.read()
+# reading pdffile and extracting text from it using pdfminer
+from pdfminer.pdfparser import PDFParser
+from pdfminer.pdfdocument import PDFDocument
+from pdfminer.pdfpage import PDFPage
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.pdfdevice import PDFDevice
+from pdfminer.converter import TextConverter
+from pdfminer.layout import LAParams
+from io import StringIO
+
+def pdfReader(file='AIS_assignment.pdf'):
+    # Open the PDF file for reading
+    fp = open(file, 'rb')
+    # Create a PDF parser using the file pointer
+    parser = PDFParser(fp)
+    # Create a PDF document using the parser
+    doc = PDFDocument(parser)
+    # Create a PDF resource manager
+    rsrcmgr = PDFResourceManager()
+    # Create a string buffer to store the extracted text
+    retstr = StringIO()
+    # Create a LAParams object
+    laparams = LAParams()
+    # Create a TextConverter device using the resource manager and string buffer
+    device = TextConverter(rsrcmgr, retstr, laparams=laparams)
+    # Create a PDF page interpreter using the resource manager and device
+    interpreter = PDFPageInterpreter(rsrcmgr, device)
+
+    # Process each page of the document
+    for page in PDFPage.create_pages(doc):
+        interpreter.process_page(page)
+
+    # Get the text from the string buffer
+    text = retstr.getvalue()
+    # Close the file pointer
+    fp.close()
+    # Close the device
+    device.close()
+    # Close the string buffer
+    retstr.close()
+    # Return the extracted text
+    return text
 
 def speak(text):
     # initializing the engine
@@ -22,34 +62,25 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
-def pdfReader(file='AIS_assignment.pdf'):
-    book = open(file, 'rb')
-    pdfReader = PyPDF2.PdfFileReader(book)
-    pages = pdfReader.numPages
-    print(pages)
-    for num in range(7, pages):
-        page = pdfReader.getPage(num)
-        text = page.extractText()
-        return text
-
-def textReader(file='text.txt'):
-    with open(file, 'r') as f:
-        text = f.read()
-    return text
-
-def readWebText(url):
-    import requests
-    from bs4 import BeautifulSoup
-    res = requests.get(url)
-    soup = BeautifulSoup(res.text, 'lxml')
-    text = soup.find('div', class_='entry-content').text
-    return text
+def display_text_gui(text):
+    root = Tk()
+    root.geometry("700x750")
+    T = Text(root, height = 100, width = 100)
+    l = Label(root, text = "Book of the Day")
+    l.config(font =("Courier", 15))
+    b1 = Button(root, text = "Next", )
+    b2 = Button(root, text = "Exit", command = root.destroy)
+    l.pack()
+    T.pack()
+    b1.pack()
+    b2.pack()
+    T.insert(tk.END, text)
+    tk.mainloop()
 
 def main():
     text = pdfReader()
-    speak(text)    
+    display_text_gui(text)
+    speak(text)
 
 if __name__ == '__main__':
     main()
-
-

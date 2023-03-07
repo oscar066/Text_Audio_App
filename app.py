@@ -1,170 +1,154 @@
-import sys
 import os
-import time
-import pdfminer.high_level
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QAction, QTextEdit, QVBoxLayout, QWidget, QLabel, QSlider, QHBoxLayout, QPushButton
-from PyQt5.QtCore import Qt, QThread, pyqtSignal, QRectF, QObject
-from PyQt5.QtGui import QTextCursor, QPainter, QColor, QBrush, QPen, QFontMetrics
+import warnings
+from PIL import Image, ImageEnhance
+warnings.filterwarnings('ignore')
+import tensorflow as tf
+from tensorflow import keras
+from keras.models import load_model
+from keras.applications.vgg16 import preprocess_input
+import numpy as np
 
-class ConvertThread(QThread):
-    text_ready = pyqtSignal(str)
+from keras_preprocessing.image import load_img, img_to_array
+from keras.preprocessing import image
 
-    def __init__(self, filename):
-        QThread.__init__(self)
-        self.filename = filename
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtGui import QMovie
+from PyQt5.QtWidgets import QMessageBox
+import pyttsx3
+#from win32com.client import Dispatch
 
-    def run(self):
-        text = pdfminer.high_level.extract_text(self.filename)
-        self.text_ready.emit(text)
 
-class Highlighter(QObject):
-    def __init__(self, editor):
-        super().__init__()
-        self.editor = editor
-        self.highlights = []
+def speak(str1):
+    engine = pyttsx3.init()
 
-    def highlight(self, start, end):
-        self.highlights.append((start, end))
-        self.editor.setExtraSelections(self.highlights)
+    # rate
+    #engine.setProperty('rate', 160)
 
-    def clear(self):
-        self.highlights = []
-        self.editor.setExtraSelections(self.highlights)
+    # voice
+    # voices = engine.getProperty('voices')
+    # engine.setProperty('voice', voices[0].id)
 
-class AudioConverter(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.initUI()
+    speech= str1
+    engine.say(speech)
+    engine.runAndWait()
+    
 
-    def initUI(self):
-        self.setWindowTitle("PDF to Audio Converter")
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(695, 609)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.frame = QtWidgets.QFrame(self.centralwidget)
+        self.frame.setGeometry(QtCore.QRect(0, 0, 701, 611))
+        self.frame.setStyleSheet("background-color: #035874;")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setGeometry(QtCore.QRect(80, -60, 541, 561))
+        self.label.setText("")
+        self.gif=QMovie("picturelungs.gif")
+        self.label.setMovie(self.gif)
+        self.gif.start()
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.frame)
+        self.label_2.setGeometry(QtCore.QRect(80, 430, 591, 41))
+        font = QtGui.QFont()
+        font.setPointSize(24)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_2.setFont(font)
+        self.label_2.setObjectName("label_2")
+        self.pushButton = QtWidgets.QPushButton(self.frame)
+        self.pushButton.setGeometry(QtCore.QRect(30, 530, 201, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("patient.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
+        self.pushButton.setFont(font)
+        self.pushButton.setStyleSheet("QPushButton{\n"
+                                    "border-radius: 10px;\n"
+                                    " background-color:#DF582C;\n"
+                                    "\n"
+                                    "}\n"
+                                    "QPushButton:hover {\n"
+                                    " background-color: #7D93E0;\n"
+                                    "}")
+        
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.frame)
+        self.pushButton_2.setGeometry(QtCore.QRect(450, 530, 201, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_2.setFont(font)
+        self.pushButton_2.setStyleSheet("QPushButton{\n"
+                                        "border-radius: 10px;\n"
+                                        " background-color:#DF582C;\n"
+                                        "\n"
+                                        "}\n"
+                                        "QPushButton:hover {\n"
+                                        " background-color: #7D93E0;\n"
+                                        "}")
+        
+        self.pushButton_2.setObjectName("pushButton_2")
+        MainWindow.setCentralWidget(self.centralwidget)
 
-        # Create actions for the menu
-        open_action = QAction("Open PDF...", self)
-        open_action.setShortcut("Ctrl+O")
-        open_action.triggered.connect(self.open_file)
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.pushButton.clicked.connect(self.upload_image)
+        self.pushButton_2.clicked.connect(self.predict_result)
 
-        quit_action = QAction("Quit", self)
-        quit_action.setShortcut("Ctrl+Q")
-        quit_action.triggered.connect(self.quit)
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "PNEUMONIA Detection Apps"))
+        self.label.setToolTip(_translate("MainWindow", "<html><head/><body><p><img src=\":/newPrefix/picturelungs.gif\"/></p></body></html>"))
+        self.label_2.setText(_translate("MainWindow", " PNEUMONIA Detection"))
+        self.pushButton.setText(_translate("MainWindow", "Upload Image"))
+        self.pushButton_2.setText(_translate("MainWindow", "Prediction"))
 
-        # Create the menu bar and add actions
-        menu_bar = self.menuBar()
-        file_menu = menu_bar.addMenu("File")
-        file_menu.addAction(open_action)
-        file_menu.addAction(quit_action)
 
-        # Create a widget for the editor and add it to the window
-        self.editor = QTextEdit()
-        self.editor.setReadOnly(True)
-        self.highlighter = Highlighter(self.editor)
-        self.setCentralWidget(self.editor)
+    def upload_image(self):
+        filename=QFileDialog.getOpenFileName()
+        path=filename[0]
+        path=str(path)
+        print(path)
+        model=load_model('Resnetmodel.h5')
+        img_file=load_img(path,target_size=(224,224))
+        x=img_to_array(img_file)
+        x=np.expand_dims(x, axis=0)
+        img_data=preprocess_input(x)
+        classes=model.predict(img_data)
+        global result
+        result=classes
 
-        # Create a slider for adjusting the speed and add it to the window
-        self.speed_label = QLabel("Speed")
-        self.speed_slider = QSlider(Qt.Horizontal)
-        self.speed_slider.setRange(1, 10)
-        self.speed_slider.setValue(5)
+    def predict_result(self):
+        print(result)
+        if result[0][0]>0.5:
+            print("Result is Normal")
+            speak("Person Results are Normal")
+        else:
+            print("Affected By PNEUMONIA")
+            speak("Person is Affected By PNEUMONIA")
 
-        speed_layout = QHBoxLayout()
-        speed_layout.addWidget(self.speed_label)
-        speed_layout.addWidget(self.speed_slider)
-
-        # Create a button for starting and stopping the audio conversion and add it to the window
-        self.convert_button = QPushButton("Convert")
-        self.convert_button.clicked.connect(self.convert)
-        self.convert_button.setEnabled(False)
-
-        button_layout = QHBoxLayout()
-        button_layout.addWidget(self.convert_button)
-
-        # Create a layout for the speed slider and button and add it to the window
-        controls_layout = QVBoxLayout()
-        controls_layout.addLayout(speed_layout)
-        controls_layout.addLayout(button_layout)
-
-        controls_widget = QWidget()
-        controls_widget.setLayout(controls_layout)
-
-        self.addDockWidget(Qt.BottomDockWidgetArea, controls_widget)
-
-        self.show()
-
-    def open_file(self):
-        # Open a file dialog to select a PDF file
-        filename, _ = QFileDialog.getOpenFileName(self, "Open PDF", "", "PDF Files (*.pdf)")
-
-        if filename:
-            # Create a thread for converting the PDF to text
-            self.convert_thread = ConvertThread(filename)
-            self.convert_thread.text_ready.connect(self.text_ready)
-            self.convert_thread.start()
-
-    def text_ready(self, text):
-        # Set the text inthe editor and enable the convert button
-        self.editor.setPlainText(text)
-        self.convert_button.setEnabled(True)
-
-def convert(self):
-    # Get the text from the editor
-    text = self.editor.toPlainText()
-
-    # Get the font metrics to calculate the height of each line
-    fm = self.editor.fontMetrics()
-    line_height = fm.height()
-
-    # Create a highlight brush and pen
-    highlight_brush = QBrush(QColor(255, 255, 0, 128))
-    highlight_pen = QPen(Qt.NoPen)
-
-    # Create a QPainter to draw the highlights
-    painter = QPainter(self.editor.viewport())
-
-    # Create a list to store the highlight rectangles
-    highlights = []
-
-    # Create a thread for converting the text to audio
-    self.audio_thread = QThread()
-    self.audio_thread.started.connect(lambda: self.convert_button.setEnabled(False))
-    self.audio_thread.finished.connect(lambda: self.convert_button.setEnabled(True))
-    self.audio_thread.start()
-
-    for i, line in enumerate(text.split("\n")):
-        # Calculate the height of the line
-        line_rect = fm.boundingRect(QRectF(0, 0, self.editor.viewport().width(), line_height), Qt.TextSingleLine, line)
-
-        # Create a highlight rectangle for the line
-        highlight_rect = QRectF(0, i * line_height, line_rect.width(), line_height)
-
-        # Add the highlight rectangle to the list
-        highlights.append(highlight_rect)
-
-        # Highlight the current line in the editor
-        self.highlighter.highlight(QTextCursor(self.editor.document().findBlockByLineNumber(i)), QTextCursor(self.editor.document().findBlockByLineNumber(i+1)))
-
-        # Calculate the position and size of the highlight rectangle
-        highlight_pos = self.editor.viewport().mapToGlobal(self.editor.mapFromGlobal(self.editor.pos())) + self.editor.cursorRect(QTextCursor(self.editor.document().findBlockByLineNumber(i))).topLeft()
-        highlight_rect.moveTopLeft(highlight_pos)
-
-        # Draw the highlight rectangle
-        painter.setBrush(highlight_brush)
-        painter.setPen(highlight_pen)
-        painter.drawRect(highlight_rect)
-
-        # Wait for a short time to simulate the text being read
-        time.sleep(0.1 * (10 - self.speed_slider.value()))
-
-    # Clear the highlights
-    self.highlighter.clear()
-
-    # Delete the QPainter
-    del painter
-
-#def quit(self):
-    # Close the window
-    #self.close()
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = AudioConverter()
-    sys.exit(app.exec_())
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+
+
+    # app exit only when window is closed
+    if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
+        QtWidgets.QApplication.instance().exec_()
+
+    #sys.exit(app.exec_())
