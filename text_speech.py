@@ -13,7 +13,7 @@ from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from io import StringIO
 
-def pdfReader(file='AIS_assignment.pdf'):
+def pdfReader(file='speak_text/AIS_assignment.pdf'):
     # Open the PDF file for reading
     fp = open(file, 'rb')
     # Create a PDF parser using the file pointer
