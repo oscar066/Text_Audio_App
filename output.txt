@@ -1,467 +1,107 @@
-Revision Notes 
-Ethernet Switching Basics - Data link layer protocols 
-- Ethernet protocols deﬁne how data frames are transmitted over an Ethernet 
-network
+Accounting Information System assignment 1 
 
-- It deﬁnes cable types & signal processing methods on a LAN
+SCT222-0142/2021 
 
-- Hub occurs at physical layer while switch occurs at data link layer-problem of 
-collision and bandwidth sharing
+1.  Discuss the generally accepted accounting principles  
 
-- Star topology with switches separates collision domains, reducing chances of 
-collision as the switch interfaces used to send and receive data are independent 
-of each other
+a)  Principle of regularity - The accountant has adhered to GAAP rules and regulations as 
 
-- Ethernet network- broadcast network based on CSMA/CD:-listen before 
-sending, listen while sending, stop sending if you detect collision, resend after 
-random delay
+a standard 
 
-- Broadcast domain - all hosts in the same broadcast domain receive broadcast 
-packets
+b)  Principle of consistency - Accountants commit to applying the same standards 
 
-- Nodes connected to all interfaces of the switch belong to the same broadcast 
-domain
+throughout the reporting process, from one period to the next, to ensure financial 
 
-- IPv6 RIPng must be conﬁgured in the interface view
+comparability between periods 
 
-- RIPv2 multicast mode designated port does not receive broadcast packets
+c)  Principle of Sincerity - The accountant strives to provide an accurate and impartial 
 
-- Floating static route(preference value 60)
+depiction of a company’s financial situation. 
 
-- Ip route-static 129.1.0.0 16 serial 0, 129.1.0.0 255.255.0.0 10.0.0.2, 129.1.0.0 16 
-10.0.0.2 - always start with the network address then next hop or interface 
-keyword network address next hop 
+d)  Principle of the permanence of methods - The procedures used in financial reporting 
 
-- Telnet authentication methods: password authentication and AAA local 
-certiﬁcation
+should be consistent, allowing a comparison of the company's financial information. 
 
-- Fr inarp: command to enable dynamic address mapping protocol in the 
-interface encapsulated with Frame Relay
+e)  Principle of Non-compensation - All aspects of an organization's performance, 
 
-- STP forwarding state can send and receive BPDUs,and forward frames
+whether positive or negative, are fully reported with no prospect of debt 
 
-- DHCPv6 address auto conﬁguration (IPv6) Router Advertisements (RA) are sent 
-by the DHCPv6  server, M and O ﬂags are 11- SLAAC and DAD
+compensation. 
 
-- IPv6 extension header Destination Option Header can occur twice
+f)  Principle of Prudence - This refers to emphasizing fact-based financial data 
 
-- DHCPv6 packet types: Solicit, Advertise, 
+representation that is not clouded by speculation. 
 
-- IPv6 basic Header has a ﬁxed length
+g)  Principle of Continuity - While valuing assets, it should be assumed the business will 
 
-- Router g0/0/1 interface does not forward received FTP and SNMP packets
+continue to operate. 
 
-- RSTP(802.1w): Forwarding, Learning, Discarding, . Previous STP port states are 
-combined- Forwarding, Learning, Listening, Blocking, Discarding
+h)  Principle of Periodicity - Reporting of revenues is divided by standard accounting 
 
-- In Ethernet_II Type/Length ﬁeld: 0x86dd - IPv6 (length 40bytes), 0x800-IPv4 
-(length range 20b - 60bytes
+periods, such as fiscal quarters or fiscal years. 
 
-- Vlan ID has 12 bits
+i)  Principle of Materiality - Accountants must strive to fully disclose all financial data 
 
-- All ports on the root-bridge switch are designated ports.
+and accounting information in financial reports. 
 
-- Maximum negotiation rate supported by IEE 802.11g standard is 54Kbps
+j)  Principle of utmost good faith - It presupposes that parties remain honest in all 
 
-- WLAN security policies that support the link authentication method of Open 
-mode: WPA2-802.IX, WEP and WPA
+transactions. 
 
-- SNMP Response packets are sent to the NMS by the Agent on the managed 
-device. SNMP client is conﬁgured on the agent while the SNMP server is 
-conﬁgured on the NMS.eg Nagios NMS
+2)  Compare and contrast the similarities and differences between computerized 
 
-- Flow label ﬁeld is added to IPv6
+accounting system and manual accounting systems  
 
+a)  Similarities between computerized accounting and manual accounting system  
 
-- RA (sent by the router to announce their presence I the network) in IPv6 is used 
-to reply address preﬁx info while RS (sent by the host)is used to reply and 
-request address preﬁx info
+i)  Purpose - Both systems aim to accurately record financial transactions, provide 
 
+useful financial information, and help make informed business decisions. 
 
-Interior Gateway Protocols- within the same AS 
-IS-IS - Intermediate system-intermediate system
+ 
+ii)  Recording process - Both systems require the input of financial data and follow a 
 
-RIP - Routing Information Protocol
+process of recording transactions, classifying and summarizing information, and 
 
-OSPF
+producing financial statements 
 
+iii)  Basic accounting principles - Both systems must follow the same basic accounting 
 
-Convergence - all routers in the network will have all the routing table 
-Autonomous system (AS)(number ASN) - Internet routable IP addresses managed by entities 
-like KENET-Safaricom- group of routers managed by an organization
+principles, such as the principles of double-entry accounting and GAAP. 
 
-Dynamic-automatic 
-Classiﬁcation of dynamic routing protocols: 
-1.
-	
-	
-2. Exterior Gateway Protocol - BGP
+iv)  Types of transactions - Both systems handle similar types of financial 
 
-Distant-Vector Routing Protocol does NOT have the whole picture of the network topology
+transactions, such as sales, purchases, payments, and collections 
 
-It periodically ﬂoods
+v)  Auditability - Both systems must be auditable, allowing an external auditor to 
 
-One of the metrics of RIP is hop counts.  
-EIGRP 
-OSPF 
+verify the accuracy of the financial information. 
 
-●
+b)  Difference between computerized accounting and manual accounting system 
 
-link-state routing protocol advertises link status information rather than routes in the 
-routing table.
+i)  Speed and Efficiency - Computerized accounting systems process transactions 
 
-• SPF is a core algorithm of OSPF and used to select preferred routes on a complex 
+and generate financial reports much faster than manual systems. 
 
-network.
+ii)  Storage capacity - Computerized accounting systems can store large amounts of 
 
-• The implementation of a link-state routing protocol is as follows:
+data, making it easier to access historical information and run complex reports. 
 
-▫ Step 1: Establishes a neighbor relationship between neighboring routers.
-▫ Step 2: Exchanges link status information and synchronizes LSDB information 
+iii)  Real-time data - Computerized accounting systems provide real-time access to 
 
-between neighbors.
+financial information, allowing companies to make more informed decisions 
 
-▫ Step 3: Calculates an optimal path.
-▫ Step 4: Generates route entries based on the shortest path tree and loads the 
+iv)  Accuracy - Computerized accounting systems can reduce the risk of human error, 
 
-routing entries to the routing table.
+resulting in more accurate financial information. 
 
-▫ The network network-address wildcard-mask command specifies the interfaces on which 
+v)  Security - Computerized accounting systems typically have better security 
 
-OSPF is to be enabled. OSPF can run on an interface only when the following two 
-conditions are met:
+measures in place to protect sensitive financial data 
 
-1. The mask length of the interface's IP address is not shorter than that speciﬁed in 
+vi)  Ease of use – manual accounting system have an advantage on ease of setup and 
 
-the network command. OSPF uses reverse mask. For example 0.0.0.255 
-indicates that the mask length is 24 bits.
+entry compared to computerized accounting  
 
-2. The address of the interface must be within the network range speciﬁed in the 
-
-network command.
-
-If priority = 0 DR and BDR will never be used
-2 types of authentication in ospf- area and interface
-
-Establishing an OSPF Adjacency:
-1.
-Init - Hello packet sent from R1
-2. 2-way - R2 replies to hello packet. R1 sets R2 status to 2-way then R2 sets R1 status to 2-way. Now 
-
-3. Ex-start im the master and my router ID is_
-4. Exchange - I’m the master and my router id is _. LSDB sharing complete
-5. Loading - R1 sends LSR to request complete info. R2 responds with LSU. R1 sends LSAck then 
-
-Neighbours
-
-LSR
-
-6. Full - LSDBs  of R1 and R2 are synchronised.
-
-IEEE802.11b/g/n/ax - 2.4GHz
-IEEE802.11ac/ax/n/a -  5GHz
-1,6,11 channels are used-done overlap
-- If a link failure occurs on a network with IGP (OSPF for example), static, and blackhole routes, the 
-
-static routes may be iterated to blackhole routes to remain active. The static routes will be 
-preferentially selected over the OSPF routes because of a higher priority.
-
-- LLA FE80::/8 - /64, GUA - 2001, ULA-FD00::/8, MULTICAST-FF00::/8
-- Multicast address range: 224.0.0.0 - 239.255.255.255
-- VLANIF interfaces: have MAC addresses and need to learn them and must have different IP 
-- Easy IP uses one public IP address while address pool uses many idle port numbers. NAPT 
-- Authentication-mode none does NOT require a username and password
-- IP address mask length 30 is recommended for device interconnection in campus network 
-planning because it only has 2 usable addresses ie only 2 DEVICES are communicating with 
-each other.
-
-uses multiple 
-
-addresses
-
--
-default-route-advertise: advertises the default route to a common OSPF area. If the always argument 
-is not speciﬁed, the default route is advertised to other routers only when there are active non-OSPF 
-default routes in the routing table of the local router.
-
-Methods for interval routing - using a router, using layer 3 switches
-Port 23 - telnet
-STP port states - disabling, blocking, listening, learning, forwarding
-RSTP port states - discarding, learning, forwarding
-
-Spanning Tree Protocol (STP) protects Layer 2 broadcast domains from 
-broadcast storms by selectively setting links to standby mode to 
-prevent loops. In standby mode, these links temporarily stop 
-transferring user data. After the topology changes, so that the data 
-transfer is made possible, the links are automatically re-activated.
-
-- BPDUs: MAC address, priority, cost 
-Network Loops occur when there are alternate routes between hosts. These 
-
-loops cause Layer 2 switches to forward trafﬁc across the network 
-inﬁnitely, reducing network efﬁciency. STP provides a unique path 
-between endpoints on a network. These paths eliminate the possibility 
-
-of network loops. STP is typically conﬁgured when there are redundant 
-links to a host to prevent network loop.
-
-The device supports the following Spanning Tree Protocol versions:
-• Classic STP — Provides a single path between any two end stations, 
-
-avoiding and eliminating loops.
-
-• Rapid STP (RSTP) — Detects network topologies to provide faster 
-convergence of the spanning tree. This is most effective when the 
-network topology is naturally tree-structured, and therefore faster 
-convergence might be possible. RSTP is enabled by default.
-
-• Multiple STP (MSTP) — MSTP is based on RSTP. It detects Layer 2 
-loops, and attempts to mitigate them by preventing the involved port 
-from transmitting trafﬁc. Since loops exist on a per-Layer 2-domain 
-basis, a situation can occur when a port is blocked to eliminate an STP 
-loop. Trafﬁc will be forwarded to the port that is not blocked, and no 
-trafﬁc will be forwarded to the port that is blocked. This is not an 
-efﬁcient usage of bandwidth as the blocked port will always be unused.
-
-MSTP solves this problem by enabling several STP instances, so that it is 
-
-possible to detect and mitigate loops separately in each instance. This 
-enables a port to be blocked for one or more STP instances but non-
-blocked for other STP instances. If different VLANs are associated with 
-different STP instances, then their trafﬁc will be relayed based on the 
-STP port state of their associated MST instances. This results to better 
-bandwidth utilization.
-
-• Ethernet frame = 64-1518 bytes
-• Display ospf peer-view status information
-• 3 tables in OSPF - OSPF neighbour table(describes the status of the neighbour relationship between 
-
-ospf routers), LSDB table(stores LSAs), OSPF routing table
-
-• Display ospf lsdb : Type(LSA type), LinkStateID, AdvRouter(router that sends the LSA), Age, Length, 
-
-Sequence, Metric
-
-broadcast domain
-
-• Broadcast is NOT an IPv6 address type-128 bits
-• G0/0/0 - router interface
-• Devices connected to the same hub form a collision domain & broadcast domain…same bridge-
-
-• Routed protocols - send user data from one network to another ie deliver application trafﬁc  eg IP,IPX
-• Pouring protocols - learn routes, network paths eg ospf, bgp, RIP
-• Source IP address is NOT included in the routing table
-• Routing loops cause slow convergence, packets circulate between routers
-• NO STP in hubs
-• DONT need a default gateway for communication between hosts in a LAN
-•
-• IP & DHCP Conﬁguration.
-
-• Default (GPT-3.5)
-• User
-• What is the essence of assigning an interface an IP address let's say 10.10.10.1 24 and then 
-
-assigning a DHCP select global 
-PPP over Ethernet (PPPoE) is a link layer protocol that encapsulates PPP 
-frames into Ethernet frames: 
-
--PPPoE is often used by home users and enterprise users to dial up for Internet 
-access.
--PPPoE client can terminate a PPPoE session in unicast mode.
--PPPoE session establishment involves three stages: PPPoE discovery, session, and 
-termination.
-PPPoE client broadcasts a request for the required service information.
-
-•
-- UDP is the transport protocol for several well-known application-layer protocols, including Network 
-File System (NFS), Simple Network Management Protocol (SNMP), Domain Name System (DNS), 
-and Trivial File Transfer Protocol (TFTP). 
-
-Unlike the TCP, UDP adds no reliability, flow-control, or error-recovery functions to IP. Because of UDP's 
-simplicity, UDP headers contain fewer bytes and consume less network overhead than TCP. 
-
-UDP is useful in situations where the reliability mechanisms of TCP are not necessary, such as in cases 
-where a higher-layer protocol might provide error and flow control. 
-
-• ChatGPT
-• Assigning an IP address, such as 10.10.10.1/24, to an interface serves the purpose of uniquely 
-
-identifying the device on a network. The "24" in the subnet mask (or CIDR notation) indicates that the 
-ﬁrst 24 bits of the IP address are used for the network, leaving the remaining 8 bits for host 
-addresses. In this case, the network can have up to 256 hosts (2^8).
-
-• Enabling DHCP (Dynamic Host Conﬁguration Protocol) on the interface allows the device to 
-
-automatically obtain its IP conﬁguration from a DHCP server on the network. By selecting "global" for 
-DHCP, the device seeks an IP address from the entire network's available pool, which is managed by 
-the DHCP server. This is an efﬁcient way to manage and assign IP addresses dynamically to multiple 
-devices on the network, rather than manually conﬁguring each device's IP address.
-
-• User
-• A duid in dhcpv6 can be conﬁgured in vrp using which 2 format's 
-• ChatGPT
-• In DHCPv6 (Dynamic Host Conﬁguration Protocol version 6), a DUID (DHCP Unique Identiﬁer) can 
-
-be conﬁgured in VRP (Versatile Routing Platform) using two formats:
-
-• DUID-LLT (Link-layer Address Plus Time): This format includes the link-layer address of the interface 
-
-and a timestamp to create a unique identiﬁer. It is commonly used in Ethernet networks.
-
-• DUID-EN (Enterprise Number): This format uses an enterprise number and a vendor-speciﬁc identiﬁer 
-
-to create a unique identiﬁer. It allows organizations to assign their own unique DUIDs for their 
-devices. Both formats serve the purpose of uniquely identifying DHCPv6 clients in the network, and 
-the choice of format depends on the speciﬁc requirements and setup of the network environment.
-
-• Ping command syntax for Windows
-• -t
-• -a
-
-Pings the speciﬁed host until stopped. To stop - type Control-C
-Resolve adresses to hostnames
-
-• -n
-•
-• Number of echo requests to send
-• -l 
-• -f
-• -i
-• -v
-• -r
-• -s
-• -j
-• -k
-• -w
-• -R
-
-Send buffer size
-Set Don't Fragmet ﬂag in packet (IPv4-only)
-Set Time To Live
-Set Type of Service (Setting has been deprecated)
-Record route for count hops (IPv4-only)
-Timestamp for count hops (IPv4-only)
-Loose source route along host-list (IPv4-only)
-Strict source route along host-list (IPv4-only)
-Timeout in milliseconds to wait for each reply
-Use routing header to test reverse route also (IPv6-only, deprecated per RFC 
-
-5095)
-
-• -S
-• -c
-• -p
-• -4
-• -6
-
-Source address to use
-Routing compartment identiﬁer
-Ping a Hyper-V Network Virtualization provider address
-Force using IPv4
-Force using Ipv6
-
-Route preferences on VRP platform: Direct-0, Internal OSPF-10, static-60, RIP-100, Internal ospf-150
-- Holdtimes are usually 4 times the hello/keepalive packets interval times ie if a hello message is sent 
-
-every 2 secs, the Holdtime is 8 secs
-
-HDLC
-
-Tunneling Protocol over IP sec
-
-
-VPN Classification:
-
-1. By application scenarios: Client to site VPN-SSL: IP sec, Layer 2 Tunneling Protocol, Layer 2 
-Site to site VPN:IP sec, L2TP, L2TP over IP sec, GRE over IP sec
-
-IKEv1
-
-2. By application objects-Extranet,Intranet, Access VPM
-
-3. By implementation
-
-
-VPN Protocols - IP sec,GRE
-
-1. PPTP: not secure and can be easily decrypted by third parties. Uses TCP port 1723
-
-2.- Transport mode: An AH or ESP header is added between the raw IP header and then 
-encapsulated into a new IP packet with a new IP header to protect the IP header and payload.
-
-- Tunnel mode applies to communication between to VPN gateways or between a host and a 
-VPN gateway. More secure than transport mode because original IP packets can be 
-authenticated and encrypted and internal IP address protocol type and ports can be hidden.
-
-header. 
-
-mode.
-
-digital signatures
-
-
-- Performance: Tunnel mode occupies more bandwidth resources due to having an extra IP 
-- When both AH and ESP are used to protect traﬃc, they must use the same encapsulation 
-- IP sec uses the hash based message authentication code (HMAC) function to compare the 
-
-FEATURES OF HDLC
-
-IT SUPPORTS ONLY PPP LINKS BUT DOES NOT SUPPORT PMP LINKS
-
-IT DOES NOT SUPPORT IP ADDRESS NEGOTIATION OR AUTHENTICATION
-
-IT USES KEEPALIVE PACKETS TO DETECT THE LINK STATUS
-
-IT CAN BE ENCAPSULATED ONLY ON SYNCHRONOUS LINKS
-
--A MODE IS USED TO DETERMINE A RELATIONSHIP BETWEEN 2 DEVICES AND THE 
-STATIONS IN HDLC
-
-WE HAVE :
-
-NORMAL RESPONSE MODE
-
-ASYNCHRONOUS RESPONSE MODE
-
-ASYNCHRONOUS BALANCE MODE
-
--FRAMES IN HDLC HAVE 5 FIELDS:
-
-FLAG FIELD-ITS RESPONSIBLE FOR INITIATION AND TERMINATION OF ERROR CHECKING IN 
-HDLC(8 BITS)
-
-ADDRESS FIELD-ITS USED TO IDENTFY THE STATIONS WHERE THE FRAME IS SENT OR 
-RECEIVED FROM(8 BITS)
-
-CONTROL FIELD-ITS USED TO CONTROL THE COMMUNICATION PROCESS(8/16 BITS)
-
-INFORMATION FIELD-IT CONTAINS DATA OR INFORMATION THAT IS SENT TO DIFFERENT 
-COMMUNICATING STATIONS(NO SPECIFIC BITS)
-
-FRAME CHECK SEQUENCE FIELD-ITS USED IN ERROR IDENTIFICATION(16/32 BITS)
-
--TYPES OF HDLC FRAMES:
-
-INFORMATION FRAMES-TRANSMIT USER DATA FROM THE COMPUTER NETWORK LAYER 
-AND INCOOPERATE ERROR CONTROL INFORMATION WITH THE DATA. INFORMATION 
-FRAMES CONTAIN CONTROL FIELDS USED TO DEFINE DATA FUNCTIONS  
-
-SUPERVISORY FRAME-TRANSMIT ERROR OR FLOW CONTROL DATA 
-
-UNNUMBERED FRAME-USED FOR MYRIAD MISCELLANEOUS FUNCTIONS LIKE LINK 
-MANAGEMENT AND MAY CONTAIN AN INFORMATION FIELD IF REQUIRED.
-
--TYPES OF STATIONS FOR HDLC PROTOCOL
-
-
-PRIMARY STATION-ITS MAIN RESPONSIBILTY IS TO CONTROL OPERATIONS OF ALL OTHER 
-STATIONS ON LINK
-
-SECONDARY STATION-IT GIVES RESPONSES TO COMMANDS THAT ARE SENT FROM 
-PRIMARY STATION 
-
-COMBINED STATION-IT ACTS AS COMBINATION OF BOTH PRIMARY AND SECONDARY 
-STATIONS
-
-
+ 
 
