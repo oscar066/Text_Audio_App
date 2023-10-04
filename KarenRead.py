@@ -28,13 +28,18 @@ def detect_source_format(file):
     elif file[-4:] == '.txt':
         print(Fore.GREEN + "\n\tText File detected")
         text_to_speech(file=file)
+
+    elif file[:4] == 'http':
+        print(Fore.GREEN + "\n\tWebpage detected")
+        WebTextConverter.online_text(url=file, web_output='output_Web.txt')
+        text_to_speech(file='output_Web.txt')
         
     else:
         print(Fore.RED + "\tError: File is not a PDF or Image")
         print(Fore.RED + "\tExiting program...")
 
 
-def text_to_speech(file=PdfConverter.pdfReader()):
+def text_to_speech(file):
 
     print(Fore.CYAN + "\n\tYour File is ready to be read\n")
 
